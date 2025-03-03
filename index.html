@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekaterine Chkuaseli's Art | Artist</title>
+    <style>
+        /* Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&display=swap');
+        
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            cursor: pointer;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .logo:hover h1 {
+            color: #a67c52;
+        }
+        
+        .logo p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: #a67c52;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #a67c52;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 0;
+            background-color: #fff;
+            margin-bottom: 60px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #a67c52, #d4b08c, #a67c52);
+            z-index: 2;
+        }
+        
+        .hero-slider {
+            position: relative;
+            height: 550px;
+            overflow: hidden;
+        }
+        
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: block;
+            text-decoration: none;
+            z-index: 0;
+        }
+        
+        /* Predefine background images for each slide */
+        .hero-slide:nth-child(1) {
+            background-image: url('images/still-life.jpg');
+        }
+        .hero-slide:nth-child(2) {
+            background-image: url('images/untitled.jpg');
+        }
+        .hero-slide:nth-child(3) {
+            background-image: url('images/spring.jpg');
+        }
+        
+        .hero-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            padding: 20px;
+            z-index: 2;
+        }
+        
+        .hero-content h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content p {
+            font-size: 18px;
+            color: #fff;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slider-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .slider-dot.active {
+            background-color: #fff;
+        }
+        
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: background-color 0.3s;
+        }
+        
+        .slider-arrow:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .slider-arrow.prev {
+            left: 20px;
+        }
+        
+        .slider-arrow.next {
+            right: 20px;
+        }
+        
+        .slider-arrow::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid #fff;
+            border-right: 2px solid #fff;
+            display: block;
+        }
+        
+        .slider-arrow.prev::before {
+            transform: rotate(-135deg);
+        }
+        
+        .slider-arrow.next::before {
+            transform: rotate(45deg);
+        }
+        
+        /* Gallery Preview */
+        .gallery-preview {
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 160px;
+        }
+        
+        .gallery-preview h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .gallery-preview h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #a67c52;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .gallery-preview p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 17px;
+        }
+        
+        .featured-works {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .featured-work {
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            aspect-ratio: 3/4;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .featured-work:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .featured-work img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .featured-work:hover img {
+            transform: scale(1.05);
+        }
+
+        .featured-work-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+        }
+
+        .featured-work-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .featured-work:hover .featured-work-info {
+            transform: translateY(0);
+        }
+        
+        .featured-work-info h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        
+        .featured-work-info p {
+            font-size: 14px;
+            color: #ccc;
+            margin: 0;
+        }
+        
+        .view-more-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #a67c52;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(166, 124, 82, 0.3);
+        }
+        
+        .view-more-btn:hover {
+            background-color: #8a6642;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(166, 124, 82, 0.4);
+        }
+        
+        /* About Preview */
+        .about-preview {
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+            background-color: #fff;
+            margin-bottom: 60px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .about-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.7) 100%);
+            z-index: 1;
+        }
+        
+        .about-preview::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://ekaterinechkuaseli.wordpress.com/wp-content/uploads/2024/02/dancer-ink-22x31cm-3.jpg?w=728');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .about-preview-content {
+            flex: 1;
+            padding: 0 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .about-preview-content h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .about-preview-content h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #a67c52;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .about-preview-content p {
+            margin-bottom: 25px;
+            font-size: 17px;
+        }
+        
+        /* Contact Preview */
+        .contact-preview {
+            background-color: #fff;
+            padding: 80px 0;
+            margin-bottom: 60px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .contact-preview h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-preview h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #a67c52;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .contact-preview p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 17px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-sections {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 40px;
+            text-align: left;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin: 0 15px 30px;
+        }
+        
+        .footer-section h4 {
+            color: #d4b08c;
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: #a67c52;
+            bottom: -8px;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a, .footer-contact a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 15px;
+        }
+        
+        .footer-links a:hover, .footer-contact a:hover {
+            color: #a67c52;
+        }
+        
+        .footer-contact {
+            color: #ccc;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        
+        .copyright {
+            font-size: 14px;
+            color: #999;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .about-preview {
+                flex-direction: column;
+            }
+            
+            .about-preview-content {
+                padding: 20px;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">
+                    <h1>Ekaterine Chkuaseli's Art</h1>
+                    <p>Artist • Tbilisi, Georgia</p>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- Featured Works Section -->
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slider">
+            <a href="gallery.html" class="hero-slide active"></a>
+            <a href="gallery.html" class="hero-slide"></a>
+            <a href="gallery.html" class="hero-slide"></a>
+            
+            <div class="hero-content">
+                <h2>Thoughts, Colors and Lines</h2>
+                <p>A world of contemporary art reflecting emotions, stories, and human experiences</p>
+            </div>
+            
+            <div class="slider-nav">
+                <div class="slider-dot active"></div>
+                <div class="slider-dot"></div>
+                <div class="slider-dot"></div>
+            </div>
+            
+            <div class="slider-arrow prev"></div>
+            <div class="slider-arrow next"></div>
+        </div>
+    </section>
+    
+    <!-- Gallery Preview -->
+    <section class="gallery-preview container">
+        <h2>Featured Works</h2>
+        <p>A selection of my recent artwork</p>
+        
+        <div class="featured-works">
+            <!-- Featured works will be populated dynamically -->
+        </div>
+        
+        <a href="gallery.html" class="view-more-btn">View Gallery</a>
+    </section>
+    
+    <!-- About Preview -->
+    <section class="about-preview">
+        <div class="container">
+            <div class="about-preview-content">
+                <h2>About Me</h2>
+                <p>An artist from Tbilisi, Georgia.</p>
+                <p>The artist's work is a journey through the world of colors and forms, where each painting reflects emotions, feelings, and life experiences.</p>
+                <a href="about.html" class="view-more-btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Preview -->
+    <section class="contact-preview">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <p>Interested in the artwork? Have questions or want to discuss a commission?</p>
+            <a href="contact.html" class="view-more-btn">Contact Me</a>
+        </div>
+    </section>
+    
+<!-- Footer -->     
+<footer>         
+    <div class="container">             
+        <div class="footer-content">                 
+            <div class="footer-sections">                     
+                <div class="footer-section">                         
+                    <h4>Navigation</h4>                         
+                    <ul class="footer-links">                             
+                        <li><a href="index.html">Home</a></li>                             
+                        <li><a href="gallery.html">Gallery</a></li>                             
+                        <li><a href="about.html">About</a></li>                             
+                        <li><a href="contact.html">Contact</a></li>                         
+                    </ul>                     
+                </div>                     
+                <div class="footer-section">                         
+                    <h4>Contact</h4>                         
+                    <p class="footer-contact">Tbilisi, Georgia</p>                         
+                    <p class="footer-contact"><a href="contact.html">Send a message</a></p>
+                    <!-- Social Media Buttons -->
+                    <div class="social-media">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Pinterest">
+                            <i class="fab fa-pinterest-p"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Behance">
+                            <i class="fab fa-behance"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>                     
+                <div class="footer-section">                         
+                    <h4>Art Categories</h4>                         
+                    <ul class="footer-links">                             
+                        <li><a href="gallery.html?filter=oil">Oil Paintings</a></li>                             
+                        <li><a href="gallery.html?filter=ink">Ink Drawings</a></li>                             
+                        <li><a href="gallery.html?filter=pastel">Pastel Drawings</a></li>
+                        <li><a href="gallery.html?filter=mixed">Mixed Media</a></li>                         
+                    </ul>                     
+                </div>                 
+            </div>                 
+            <div class="copyright">                     
+                © 2025 Ekaterine Chkuaseli's Art. All rights reserved.                 
+            </div>             
+        </div>         
+    </div>     
+</footer>
+
+<!-- Add Font Awesome for social icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- CSS styles for social media icons -->
+<style>
+    /* Footer Styles */
+    footer {
+        background-color: #2a2a2a;
+        color: #ffffff;
+        padding: 50px 0 30px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .footer-content {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .footer-sections {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+    }
+    
+    .footer-section {
+        flex: 1;
+        min-width: 200px;
+    }
+    
+    .footer-section h4 {
+        color: #ffffff;
+        font-size: 18px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    
+    .footer-section h4::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        height: 2px;
+        background-color: #a08b6c;
+    }
+    
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .footer-links li {
+        margin-bottom: 10px;
+    }
+    
+    .footer-links a, 
+    .footer-contact a {
+        color: #cccccc;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover, 
+    .footer-contact a:hover {
+        color: #a08b6c;
+    }
+    
+    .footer-contact {
+        color: #cccccc;
+        margin-bottom: 10px;
+    }
+    
+    .copyright {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #999999;
+        font-size: 14px;
+    }
+    
+    /* Social Media Icons */
+    .social-media {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    .social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background-color: rgba(255, 255, 255, 0.07);
+        border-radius: 50%;
+        color: #ffffff;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+        background-color: #a08b6c;
+        color: #ffffff;
+        transform: translateY(-3px);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .footer-sections {
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .footer-section {
+            width: 100%;
+        }
+    }
+</style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Slider functionality
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            const prevArrow = document.querySelector('.slider-arrow.prev');
+            const nextArrow = document.querySelector('.slider-arrow.next');
+            const heroContent = document.querySelector('.hero-content');
+            let currentSlide = 0;
+            let slideInterval;
+
+            // Function to show a specific slide
+            function showSlide(index) {
+                // Remove active class from all slides and dots
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Add active class to current slide and dot
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                
+                // Update current slide index
+                currentSlide = index;
+            }
+
+            // Function to show next slide
+            function nextSlide() {
+                let next = currentSlide + 1;
+                if (next >= slides.length) {
+                    next = 0;
+                }
+                showSlide(next);
+            }
+
+            // Function to show previous slide
+            function prevSlide() {
+                let prev = currentSlide - 1;
+                if (prev < 0) {
+                    prev = slides.length - 1;
+                }
+                showSlide(prev);
+            }
+
+            // Set up click events for dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSlide(index);
+                    resetInterval();
+                });
+            });
+
+            // Set up click events for arrows
+            if (prevArrow) {
+                prevArrow.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    prevSlide();
+                    resetInterval();
+                });
+            }
+
+            if (nextArrow) {
+                nextArrow.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    nextSlide();
+                    resetInterval();
+                });
+            }
+
+            // Prevent hero content from triggering slide links
+            if (heroContent) {
+                heroContent.addEventListener('click', (e) => {
+                    e.preventDefault();
+                });
+            }
+
+            // Function to start automatic slideshow
+            function startSlideshow() {
+                slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+            }
+
+            // Function to reset interval when manually changing slides
+            function resetInterval() {
+                clearInterval(slideInterval);
+                startSlideshow();
+            }
+
+            // Start the slideshow
+            startSlideshow();
+
+            // Featured Works Functionality
+            async function loadArtworks() {
+                try {
+                    const response = await fetch('/list-images');
+                    const images = await response.json();
+                    return images.map(image => ({
+                        src: `images/${image.name}`,
+                        alt: image.name.replace('.jpg', '').replace(/-/g, ' '),
+                        title: image.name.replace('.jpg', '').replace(/-/g, ' '),
+                        description: 'Artwork' // You can add more detailed descriptions if needed
+                    }));
+                } catch (error) {
+                    console.error('Error loading images:', error);
+                    return [];
+                }
+            }
+
+            // Function to shuffle array
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            // Get random artworks
+            async function getRandomArtworks(count) {
+                const allArtworks = await loadArtworks();
+                const shuffled = shuffleArray([...allArtworks]);
+                return shuffled.slice(0, count);
+            }
+
+            // Populate featured works
+            async function populateFeaturedWorks() {
+                const featuredWorksContainer = document.querySelector('.featured-works');
+                const randomArtworks = await getRandomArtworks(9); // Get 9 random artworks
+
+                featuredWorksContainer.innerHTML = randomArtworks.map(artwork => `
+                    <div class="featured-work">
+                        <img src="${artwork.src}" alt="${artwork.alt}">
+                        <div class="featured-work-info">
+                            <h3>${artwork.title}</h3>
+                            <p>${artwork.description}</p>
+                        </div>
+                        <a href="gallery.html" class="featured-work-link" aria-label="View in gallery"></a>
+                    </div>
+                `).join('');
+            }
+
+            // Initial population
+            populateFeaturedWorks();
+
+            // Refresh featured works every 24 hours
+            setInterval(populateFeaturedWorks, 24 * 60 * 60 * 1000);
+        });
+    </script>
+</body>
+</html>

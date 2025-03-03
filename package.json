@@ -1,0 +1,12 @@
+{
+  "name": "ekas-website",
+  "version": "1.0.0",
+  "description": "Ekaterine Chkuaseli's Art Portfolio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+} 
