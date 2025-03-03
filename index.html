@@ -261,33 +261,20 @@
         
         /* Gallery Preview */
         .gallery-preview {
-            padding: 60px 0;
             text-align: center;
-            margin-bottom: 160px;
+            padding: 60px 0;
+            background-color: #fff;
         }
         
         .gallery-preview h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .gallery-preview h2::after {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 3px;
-            background-color: #a67c52;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #333;
         }
         
         .gallery-preview p {
-            max-width: 700px;
-            margin: 0 auto 40px;
-            font-size: 17px;
+            color: #666;
+            margin-bottom: 40px;
         }
         
         .featured-works {
@@ -297,7 +284,7 @@
             margin-bottom: 40px;
         }
         
-        .featured-work {
+        .featured-work-item {
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -307,12 +294,12 @@
             cursor: pointer;
         }
         
-        .featured-work:hover {
+        .featured-work-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
         
-        .featured-work img {
+        .featured-work-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -320,45 +307,34 @@
             transition: transform 0.5s;
         }
         
-        .featured-work:hover img {
+        .featured-work-item:hover img {
             transform: scale(1.05);
         }
-
-        .featured-work-link {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 3;
-        }
-
-        .featured-work-info {
+        
+        .featured-work-item .overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
             transform: translateY(100%);
-            transition: transform 0.3s ease;
-            z-index: 2;
-            pointer-events: none;
+            transition: transform 0.3s;
         }
         
-        .featured-work:hover .featured-work-info {
+        .featured-work-item:hover .overlay {
             transform: translateY(0);
         }
         
-        .featured-work-info h3 {
+        .featured-work-item .overlay h3 {
             font-size: 18px;
             margin-bottom: 5px;
-            color: #fff;
+            color: #333;
         }
         
-        .featured-work-info p {
+        .featured-work-item .overlay p {
             font-size: 14px;
-            color: #ccc;
+            color: #666;
             margin: 0;
         }
         
@@ -368,16 +344,12 @@
             background-color: #a67c52;
             color: #fff;
             text-decoration: none;
-            border-radius: 30px;
-            font-weight: 500;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(166, 124, 82, 0.3);
+            border-radius: 25px;
+            transition: background-color 0.3s;
         }
         
         .view-more-btn:hover {
-            background-color: #8a6642;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(166, 124, 82, 0.4);
+            background-color: #8b6642;
         }
         
         /* About Preview */
@@ -641,7 +613,7 @@
         <p>A selection of my recent artwork</p>
         
         <div class="featured-works">
-            <!-- Featured works will be populated dynamically -->
+            <!-- Works will be populated dynamically via JavaScript -->
         </div>
         
         <a href="gallery.html" class="view-more-btn">View Gallery</a>
@@ -856,6 +828,62 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // All available artworks
+            const allArtworks = [
+                { src: 'images/Still Life.jpg', title: 'Still Life', medium: 'Oil on Canvas' },
+                { src: 'images/Untitled.jpg', title: 'Untitled', medium: 'Mixed Media' },
+                { src: 'images/spring.jpg', title: 'Spring', medium: 'Oil on Canvas' },
+                { src: 'images/Winter1.jpg', title: 'Winter', medium: 'Oil on Canvas' },
+                { src: 'images/Thought.jpg', title: 'Thought', medium: 'Mixed Media' },
+                { src: 'images/Tree.jpg', title: 'Tree', medium: 'Oil on Canvas' },
+                { src: 'images/Cuca.jpg', title: 'Cuca', medium: 'Mixed Media' },
+                { src: 'images/Hedgehog.jpg', title: 'Hedgehog', medium: 'Oil on Canvas' },
+                { src: 'images/Jester.jpg', title: 'Jester', medium: 'Mixed Media' },
+                { src: 'images/folk-instruments.jpg', title: 'Folk Instruments', medium: 'Oil on Canvas' },
+                { src: 'images/the-flowers.jpg', title: 'The Flowers', medium: 'Oil on Canvas' },
+                { src: 'images/with-crane.jpg', title: 'With Crane', medium: 'Mixed Media' },
+                { src: 'images/Dream.jpg', title: 'Dream', medium: 'Oil on Canvas' },
+                { src: 'images/blindly-spring.jpg', title: 'Blindly Spring', medium: 'Mixed Media' },
+                { src: 'images/the-bird.jpg', title: 'The Bird', medium: 'Oil on Canvas' },
+                { src: 'images/We.jpg', title: 'We', medium: 'Mixed Media' },
+                { src: 'images/My-Green-Space.jpg', title: 'My Green Space', medium: 'Oil on Canvas' },
+                { src: 'images/Flowers.jpg', title: 'Flowers', medium: 'Mixed Media' }
+            ];
+
+            // Function to shuffle array
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            // Get random artworks
+            function getRandomArtworks(count) {
+                const shuffled = shuffleArray([...allArtworks]);
+                return shuffled.slice(0, count);
+            }
+
+            // Populate featured works
+            function populateFeaturedWorks() {
+                const featuredWorksContainer = document.querySelector('.featured-works');
+                const randomArtworks = getRandomArtworks(9);
+
+                featuredWorksContainer.innerHTML = randomArtworks.map(artwork => `
+                    <a href="gallery.html" class="featured-work-item">
+                        <img src="${artwork.src}" alt="${artwork.title}">
+                        <div class="overlay">
+                            <h3>${artwork.title}</h3>
+                            <p>${artwork.medium}</p>
+                        </div>
+                    </a>
+                `).join('');
+            }
+
+            // Initial population
+            populateFeaturedWorks();
+
             // Slider functionality
             const slides = document.querySelectorAll('.hero-slide');
             const dots = document.querySelectorAll('.slider-dot');
@@ -867,19 +895,15 @@
 
             // Function to show a specific slide
             function showSlide(index) {
-                // Remove active class from all slides and dots
                 slides.forEach(slide => slide.classList.remove('active'));
                 dots.forEach(dot => dot.classList.remove('active'));
                 
-                // Add active class to current slide and dot
                 slides[index].classList.add('active');
                 dots[index].classList.add('active');
                 
-                // Update current slide index
                 currentSlide = index;
             }
 
-            // Function to show next slide
             function nextSlide() {
                 let next = currentSlide + 1;
                 if (next >= slides.length) {
@@ -888,7 +912,6 @@
                 showSlide(next);
             }
 
-            // Function to show previous slide
             function prevSlide() {
                 let prev = currentSlide - 1;
                 if (prev < 0) {
@@ -897,7 +920,6 @@
                 showSlide(prev);
             }
 
-            // Set up click events for dots
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -906,7 +928,6 @@
                 });
             });
 
-            // Set up click events for arrows
             if (prevArrow) {
                 prevArrow.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -923,82 +944,22 @@
                 });
             }
 
-            // Prevent hero content from triggering slide links
             if (heroContent) {
                 heroContent.addEventListener('click', (e) => {
                     e.preventDefault();
                 });
             }
 
-            // Function to start automatic slideshow
             function startSlideshow() {
-                slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+                slideInterval = setInterval(nextSlide, 5000);
             }
 
-            // Function to reset interval when manually changing slides
             function resetInterval() {
                 clearInterval(slideInterval);
                 startSlideshow();
             }
 
-            // Start the slideshow
             startSlideshow();
-
-            // Featured Works Functionality
-            async function loadArtworks() {
-                try {
-                    const response = await fetch('/list-images');
-                    const images = await response.json();
-                    return images.map(image => ({
-                        src: `images/${image.name}`,
-                        alt: image.name.replace('.jpg', '').replace(/-/g, ' '),
-                        title: image.name.replace('.jpg', '').replace(/-/g, ' '),
-                        description: 'Artwork' // You can add more detailed descriptions if needed
-                    }));
-                } catch (error) {
-                    console.error('Error loading images:', error);
-                    return [];
-                }
-            }
-
-            // Function to shuffle array
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                return array;
-            }
-
-            // Get random artworks
-            async function getRandomArtworks(count) {
-                const allArtworks = await loadArtworks();
-                const shuffled = shuffleArray([...allArtworks]);
-                return shuffled.slice(0, count);
-            }
-
-            // Populate featured works
-            async function populateFeaturedWorks() {
-                const featuredWorksContainer = document.querySelector('.featured-works');
-                const randomArtworks = await getRandomArtworks(9); // Get 9 random artworks
-
-                featuredWorksContainer.innerHTML = randomArtworks.map(artwork => `
-                    <div class="featured-work">
-                        <img src="${artwork.src}" alt="${artwork.alt}">
-                        <div class="featured-work-info">
-                            <h3>${artwork.title}</h3>
-                            <p>${artwork.description}</p>
-                        </div>
-                        <a href="gallery.html" class="featured-work-link" aria-label="View in gallery"></a>
-                    </div>
-                `).join('');
-            }
-
-            // Initial population
-            populateFeaturedWorks();
-
-            // Refresh featured works every 24 hours
-            setInterval(populateFeaturedWorks, 24 * 60 * 60 * 1000);
         });
     </script>
 </body>
